@@ -6,8 +6,10 @@ class State(Enum):
     ALIVE = 1
 
 class Cell:
+    MAX_NEIGHBORS = 8
+
     def __init__(self, neighbors):
-        assert len(neighbors) == 8, "Cell has to have 8 neighbors. Actual list: ".format(neighbors)
+        assert len(neighbors) == self.MAX_NEIGHBORS, "Cell has to have {} neighbors. Actual list: {}".format(self.MAX_NEIGHBORS, neighbors)
         self.neighbors = neighbors
         self.next_state = State.DEAD
         self.state = State.DEAD
