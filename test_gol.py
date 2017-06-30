@@ -15,15 +15,15 @@ class gol_test(unittest.TestCase):
 
         self.assertTrue(self.board.is_alive(0, 0))
 
-    def test_next_step_will_leave_left_corner_dead_when_only_two_cells_are_alive(self):
+    def test_next_step_will_leave_left_corner_alive_when_only_two_cells_are_alive(self):
         self.board.set_alive(0, 1)
         self.board.set_alive(1, 1)
 
         self.board.next_step()
 
-        self.assertFalse(self.board.is_alive(0, 0))
+        self.assertTrue(self.board.is_alive(0, 0))
 
-    def test_next_step_will_leave_left_corner_alive_when_only_two_cells_are_alive(self):
+    def test_next_step_will_leave_left_corner_alive_when_only_three_cells_are_alive(self):
         self.board.set_alive(0, 0)
         self.board.set_alive(0, 1)
         self.board.set_alive(1, 1)

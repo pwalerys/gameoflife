@@ -15,7 +15,7 @@ class Cell:
         self.state = State.DEAD
 
     def prepare_next_state(self):
-        alive = [n for n in self.neighbors if n.state is State.ALIVE]
+        alive = [n for n in self.neighbors if n and n.state is State.ALIVE]
         self.next_state = State.ALIVE if len(alive) in [2, 3] else State.DEAD
 
     def update_state(self):
