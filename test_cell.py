@@ -57,6 +57,25 @@ class CellTest(unittest.TestCase):
 
         self.assertFalse(cell.alive)
 
+    def test_cell_will_revive_if_three_neighbors_will_be_alive(self):
+        cell = Cell([self.alive_cell]*3+ [self.dead_cell]*(Cell.NUMBER_OF_NEIGHBORS-3))
+        cell.set_dead()
+
+        cell.prepare_next_state()
+        cell.update_state()
+
+        self.assertTrue(cell.alive)
+
+    def test_cell_will_not_revive_if_two_neighbors_will_be_alive(self):
+        cell = Cell([self.alive_cell]*2 + [self.dead_cell]*(Cell.NUMBER_OF_NEIGHBORS-2))
+        cell.set_dead()
+
+        cell.prepare_next_state()
+        cell.update_state()
+
+        self.assertFalse(cell.alive)
+
+
     def test_cell_will_die_if_more_than_three_neighbors_will_be_alive(self):
         for alive, dead in zip(range(4, Cell.NUMBER_OF_NEIGHBORS + 1), range(Cell.NUMBER_OF_NEIGHBORS - 4, 3, -1)):
             cell = Cell([self.alive_cell]*alive + [self.dead_cell]*dead)
