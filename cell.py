@@ -36,3 +36,10 @@ class Cell:
 
     def __str__(self):
         return 'X' if self.alive else 'O'
+
+
+class Corner(Cell):
+    NUMBER_OF_NEIGHBORS = 3
+
+    def __init__(self, neighbors):
+        super().__init__(neighbors)
