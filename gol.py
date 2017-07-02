@@ -7,7 +7,7 @@ class Board:
     def __init__(self, size):
         self.size = size
         no_neighbors = [None] * Cell.NUMBER_OF_NEIGHBORS
-        self.board = [[Cell(no_neighbors)] * size] * size
+        self.board = [[Cell(no_neighbors) for _ in range(size)] for __ in range(size)]
 
         self.__init__corners(size)
 
@@ -86,4 +86,4 @@ class Board:
         return self.board[row-1][column+1]
 
 if __name__ == "__main__":
-    print(Board(9))
+    board = Board(9)
