@@ -1,5 +1,5 @@
 from tabulate import tabulate
-from cell import Cell
+from cell import Cell, Corner
 
 
 class Board:
@@ -8,32 +8,47 @@ class Board:
         self.size = size
         no_neighbors = [None] * Cell.NUMBER_OF_NEIGHBORS
         self.board = [[Cell(no_neighbors)] * size] * size
-        for row in range(self.size):
-            for column in range(self.size):
-                if row == 0:
-                    if column == 0:
-                        self.board[row][column].neighbors[0] = self.board[0][1]
-                        self.board[row][column].neighbors[1] = self.board[1][1]
-                        self.board[row][column].neighbors[2] = self.board[1][0]
-                    elif column == self.size - 1:
-                        pass
-                    else:
-                        pass
-                elif row == self.size - 1:
-                    if column == 0:
-                        pass
-                    elif column == self.size - 1:
-                        pass
-                    else:
-                        pass
-                else:
-                    pass
 
-    def set_alive(self, x, y):
-        self.board[x][y].set_alive()
+        self.__init__corners(size)
 
-    def is_alive(self, x, y):
-        return self.board[x][y].alive
+    def __init__corners(self, size):
+        self.__init_left_upper_corner()
+        self.__init_left_lower_corner(size)
+        self.__init_right_upper_corner(size)
+        self.__init_right_lower_corner(size)
+
+    def __init_right_lower_corner(self, size):
+        row = size - 1
+        col = size - 1
+        self.board[row][col] = Corner(
+            [self._get_left(row, col), self._get_upper(row, col), self._get_upper_left(row, col)])
+
+    def __init_right_upper_corner(self, size):
+        row = 0
+        col = size - 1
+        self.board[row][col] = Corner(
+            [self._get_left(row, col), self._get_lower(row, col), self._get_lower_left(row, col)])
+
+    def __init_left_lower_corner(self, size):
+        row = size - 1
+        col = 0
+        self.board[row][col] = Corner(
+            [self._get_right(row, col), self._get_upper(row, col), self._get_upper_right(row, col)])
+
+    def __init_left_upper_corner(self):
+        row = 0
+        col = 0
+        self.board[row][col] = Corner(
+            [self._get_right(row, col), self._get_lower(row, col), self._get_lower_right(row, col)])
+
+    def set_alive(self, row, column):
+        self.board[row][column].set_alive()
+
+    def set_dead(self, row, column):
+        self.board[row][column].set_dead()
+
+    def is_alive(self, row, column):
+        return self.board[row][column].alive
 
     def __repr__(self):
         return tabulate(self.board, tablefmt="grid")
@@ -46,7 +61,29 @@ class Board:
             for cell in row:
                 cell.update_state()
 
+    def _get_lower(self, row, column):
+        return self.board[row+1][column]
 
+    def _get_upper(self, row, column):
+        return self.board[row-1][column]
+
+    def _get_right(self, row, column):
+        return self.board[row][column+1]
+
+    def _get_left(self, row, column):
+        return self.board[row][column-1]
+
+    def _get_lower_left(self, row, column):
+        return self.board[row+1][column-1]
+
+    def _get_upper_left(self, row, column):
+        return self.board[row-1][column-1]
+
+    def _get_lower_right(self, row, column):
+        return self.board[row+1][column+1]
+
+    def _get_upper_right(self, row, column):
+        return self.board[row-1][column+1]
 
 if __name__ == "__main__":
     print(Board(9))
