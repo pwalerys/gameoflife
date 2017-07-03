@@ -34,25 +34,25 @@ class gol_test(unittest.TestCase):
     def stays_alive_scenario(self, coordinates, alive_neighbors):
         self._scenario(coordinates, alive_neighbors, alive_at_the_beginning=True, alive_at_the_end=True)
 
-    def test_next_step_will_set_alive_left_upper_corner_when_all_surrounding_cells_are_alive(self):
+    def test_left_upper_corner_will_revive_when_all_surrounding_cells_are_alive(self):
         cell_coordinates = 0, 0
         alive_neighbors = [(0,1), (1,1), (1,0)]
 
         self.revive_scenario(cell_coordinates, alive_neighbors)
 
-    def test_next_step_will_leave_left_upper_corner_alive_when_only_two_cells_are_alive(self):
+    def test_left_upper_corner_will_survive_when_only_two_cells_are_alive(self):
         cell_coordinates = 0, 0
         alive_neighbors = [(0,1), (1,1)]
 
         self.stays_alive_scenario(cell_coordinates, alive_neighbors)
 
-    def test_next_step_will_leave_left_upper_corner_alive_when_all_surrounding_cells_are_alive(self):
+    def test_left_upper_corner_will_survive_when_all_surrounding_cells_are_alive(self):
         cell_coordinates = 0, 0
         alive_neighbors = [(0,1), (1,1), (1,0)]
 
         self.stays_alive_scenario(cell_coordinates, alive_neighbors)
 
-    def test_next_step_will_set_left_upper_corner_dead_when_only_one_neighbor_is_alive(self):
+    def test_left_upper_corner_will_die_when_only_one_neighbor_is_alive(self):
         cell_coordinates = 0, 0
         alive_neighbors = [(0,1)]
 
