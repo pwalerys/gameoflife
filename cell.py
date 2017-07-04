@@ -35,7 +35,7 @@ class Cell:
         self.state = State.DEAD
 
     def __str__(self):
-        return 'X' if self.alive else 'O'
+        return 'C' if self.alive else 'c'
 
 
 class Corner(Cell):
@@ -43,3 +43,16 @@ class Corner(Cell):
 
     def __init__(self, neighbors):
         super().__init__(neighbors)
+
+    def __str__(self):
+        return 'K' if self.alive else 'k'
+
+
+class Edge(Cell):
+    NUMBER_OF_NEIGHBORS = 5
+
+    def __init__(self, neighbors):
+        super().__init__(neighbors)
+
+    def __str__(self):
+        return 'E' if self.alive else 'e'
