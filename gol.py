@@ -10,6 +10,7 @@ class Board:
 
         self._create_board()
         self.__init__corners(size)
+        self.__init__edges(size)
 
     def _create_board(self):
         self._create_regular_cells()
@@ -85,6 +86,49 @@ class Board:
         col = 0
         self.board[row][col].neighbors = [self._get_right(row, col), self._get_lower(row, col), self._get_lower_right(row, col)]
 
+    def __init__edges(self, size):
+        self.__init_upper_edge()
+        self.__init_lower_edge()
+        self.__init_left_edge()
+        self.__init_right_edge()
+
+    def __init_lower_edge(self):
+        row = self.size - 1
+        for column in range(1, self.size - 1):
+            self.board[row][column].neighbors = [self._get_left(row, column),
+                                                 self._get_upper_left(row, column),
+                                                 self._get_upper(row, column),
+                                                 self._get_upper_right(row, column),
+                                                 self._get_right(row, column)]
+
+    def __init_upper_edge(self):
+        row = 0
+        for column in range(1, self.size - 1):
+            self.board[row][column].neighbors = [self._get_left(row, column),
+                                                 self._get_lower_left(row, column),
+                                                 self._get_lower(row, column),
+                                                 self._get_lower_right(row, column),
+                                                 self._get_right(row, column)]
+
+    def __init_left_edge(self):
+        row = 0
+        for column in range(1, self.size - 1):
+            self.board[row][column].neighbors = [self._get_left(row, column),
+                                                 self._get_lower_left(row, column),
+                                                 self._get_lower(row, column),
+                                                 self._get_lower_right(row, column),
+                                                 self._get_right(row, column)]
+
+    def __init_right_edge(self):
+        row = 0
+        for column in range(1, self.size - 1):
+            self.board[row][column].neighbors = [self._get_left(row, column),
+                                                 self._get_lower_left(row, column),
+                                                 self._get_lower(row, column),
+                                                 self._get_lower_right(row, column),
+                                                 self._get_right(row, column)]
+
+
     def set_alive(self, row, column):
         self.board[row][column].set_alive()
 
@@ -130,5 +174,5 @@ class Board:
         return self.board[row-1][column+1]
 
 if __name__ == "__main__":
-    board = Board(9)
+    board = Board(3)
     print(board)

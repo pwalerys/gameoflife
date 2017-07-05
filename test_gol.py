@@ -118,5 +118,43 @@ class gol_test(unittest.TestCase):
 
         self.revive_scenario(cell_coordinates, alive_neighbors)
 
+    def test_upper_edge_will_die_if_all_neighbors_are_dead(self):
+        cell_coordinates = 0, 1
+        alive_neighbors = []
+
+        self.dying_scenario(cell_coordinates, alive_neighbors)
+
+    def test_upper_edge_will_revive_if_three_neighbors_are_alive(self):
+        cell_coordinates = 0, 1
+        alive_neighbors = [(0, 0), (1, 1), (0, 1)]
+
+        self.revive_scenario(cell_coordinates, alive_neighbors)
+
+    def test_lower_edge_will_die_if_one_neighbor_is_alive(self):
+        cell_coordinates = 2, 1
+        alive_neighbors = [(2, 0)]
+
+        self.dying_scenario(cell_coordinates, alive_neighbors)
+
+    def test_lower_edge_will_survive_if_two_neighbors_are_alive(self):
+        cell_coordinates = 2, 1
+        alive_neighbors = [(2, 0), (1, 1)]
+
+        self.stays_alive_scenario(cell_coordinates, alive_neighbors)
+
+    def test_lower_edge_will_die_if_all_neighbors_are_alive(self):
+        cell_coordinates = 2, 1
+        alive_neighbors = [(2, 0), (1, 0), (1, 1), (1, 2), (2, 2)]
+
+        self.dying_scenario(cell_coordinates, alive_neighbors)
+
+    def test_lower_edge_will_revive_if_three_neighbors_are_alive(self):
+        cell_coordinates = 2, 1
+        alive_neighbors = [(1, 1), (1, 2), (2, 2)]
+
+        self.revive_scenario(cell_coordinates, alive_neighbors)
+
+
+
 if __name__ == "__main__":
     unittest.main()
