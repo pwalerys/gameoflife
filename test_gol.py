@@ -154,6 +154,35 @@ class gol_test(unittest.TestCase):
 
         self.revive_scenario(cell_coordinates, alive_neighbors)
 
+    def test_cell_will_die_if_no_neighbors_are_alive(self):
+        cell_coordinates = 1, 1
+        alive_neighbors = []
+
+        self.dying_scenario(cell_coordinates, alive_neighbors)
+
+    def test_cell_will_die_if_all_neighbors_are_alive(self):
+        cell_coordinates = 1, 1
+        alive_neighbors = [(0, 0), (0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1), (2, 2)]
+
+        self.dying_scenario(cell_coordinates, alive_neighbors)
+
+    def test_cell_will_die_if_one_neighbor_is_alive(self):
+        cell_coordinates = 1, 1
+        alive_neighbors = [(0, 2)]
+
+        self.dying_scenario(cell_coordinates, alive_neighbors)
+
+    def test_cell_will_revive_if_three_neighbors_are_alive(self):
+        cell_coordinates = 1, 1
+        alive_neighbors = [(0, 0), (0, 1), (0, 2)]
+
+        self.revive_scenario(cell_coordinates, alive_neighbors)
+
+    def test_cell_will_survive_if_two_neighbors_are_alive(self):
+        cell_coordinates = 1, 1
+        alive_neighbors = [(2, 0), (2, 2)]
+
+        self.stays_alive_scenario(cell_coordinates, alive_neighbors)
 
 
 if __name__ == "__main__":

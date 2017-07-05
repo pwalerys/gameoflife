@@ -11,6 +11,7 @@ class Board:
         self._create_board()
         self.__init__corners(size)
         self.__init__edges(size)
+        self.__init__cells()
 
     def _create_board(self):
         self._create_regular_cells()
@@ -128,6 +129,17 @@ class Board:
                                                  self._get_lower_right(row, column),
                                                  self._get_right(row, column)]
 
+    def __init__cells(self):
+        for row in range(1, self.size - 1):
+            for column in range(1, self.size - 1):
+                self.board[row][column].neighbors = [self._get_upper(row, column),
+                                                     self._get_upper_right(row, column),
+                                                     self._get_right(row, column),
+                                                     self._get_lower_right(row, column),
+                                                     self._get_lower(row, column),
+                                                     self._get_lower_left(row, column),
+                                                     self._get_left(row, column),
+                                                     self._get_upper_left(row, column)]
 
     def set_alive(self, row, column):
         self.board[row][column].set_alive()
