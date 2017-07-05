@@ -9,8 +9,11 @@ class Board:
         self.board = [[None for _ in range(size)] for _ in range(size)]
 
         self._create_board()
-        self.__init__corners(size)
-        self.__init__edges(size)
+        self._initialize_neighbors()
+
+    def _initialize_neighbors(self):
+        self.__init__corners()
+        self.__init__edges()
         self.__init__cells()
 
     def _create_board(self):
@@ -61,24 +64,24 @@ class Board:
         for column in range(1, self.size - 1):
             self.board[row][column] = Edge(dummy_neighbors)
 
-    def __init__corners(self, size):
+    def __init__corners(self):
         self.__init_left_upper_corner()
-        self.__init_left_lower_corner(size)
-        self.__init_right_upper_corner(size)
-        self.__init_right_lower_corner(size)
+        self.__init_left_lower_corner()
+        self.__init_right_upper_corner()
+        self.__init_right_lower_corner()
 
-    def __init_right_lower_corner(self, size):
-        row = size - 1
-        col = size - 1
+    def __init_right_lower_corner(self):
+        row = self.size - 1
+        col = self.size - 1
         self.board[row][col].neighbors = [self._get_left(row, col), self._get_upper(row, col), self._get_upper_left(row, col)]
 
-    def __init_right_upper_corner(self, size):
+    def __init_right_upper_corner(self):
         row = 0
-        col = size - 1
+        col = self.size - 1
         self.board[row][col].neighbors = [self._get_left(row, col), self._get_lower(row, col), self._get_lower_left(row, col)]
 
-    def __init_left_lower_corner(self, size):
-        row = size - 1
+    def __init_left_lower_corner(self):
+        row = self.size - 1
         col = 0
         self.board[row][col].neighbors =[self._get_right(row, col), self._get_upper(row, col), self._get_upper_right(row, col)]
 
@@ -87,7 +90,7 @@ class Board:
         col = 0
         self.board[row][col].neighbors = [self._get_right(row, col), self._get_lower(row, col), self._get_lower_right(row, col)]
 
-    def __init__edges(self, size):
+    def __init__edges(self):
         self.__init_upper_edge()
         self.__init_lower_edge()
         self.__init_left_edge()
