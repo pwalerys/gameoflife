@@ -1,9 +1,10 @@
-
 from enum import Enum
+
 
 class State(Enum):
     DEAD = 0
     ALIVE = 1
+
 
 class Cell:
     NUMBER_OF_NEIGHBORS = 8
