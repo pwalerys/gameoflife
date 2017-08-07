@@ -156,13 +156,19 @@ class Board:
     def __repr__(self):
         return tabulate(self.board, tablefmt="grid")
 
-    def next_step(self):
+    def prepare_next_state(self):
         for row in self.board:
             for cell in row:
                 cell.prepare_next_state()
+
+    def update_state(self):
         for row in self.board:
             for cell in row:
                 cell.update_state()
+
+    def next_step(self):
+        self.prepare_next_state()
+        self.update_state()
 
     def _get_lower(self, row, column):
         return self.board[row+1][column]
